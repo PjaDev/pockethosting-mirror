@@ -1,0 +1,27 @@
+name: Download Termux Packages and Upload Artifact
+
+on:
+  push:
+
+jobs:
+  download_and_upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create directory for Termux packages
+        run: mkdir -p public/apt/termux-main
+
+      - name: Download Termux packages
+        run: |
+          cd public/apt/termux-main
+          wget -r -np -nH --cut-dirs=3 -R "index.html*" https://packages.termux.dev/apt/termux-main/
+          wget -r -np -nH --cut-dirs=3 -R "index.html*" -e robots=off https://packages.termux.dev/apt/termux-main/
+
+      - name: Upload Termux packages as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: termux-packages-3.2.1
+          path: public/apt/termux-main
