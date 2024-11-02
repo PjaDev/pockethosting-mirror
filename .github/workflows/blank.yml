@@ -17,8 +17,8 @@ jobs:
       - name: Download Termux packages
         run: |
           cd public/apt/termux-main
-          wget -r -np -nH --cut-dirs=3 -R "index.html*" https://packages.termux.dev/apt/termux-main/
-          wget -r -np -nH --cut-dirs=3 -R "index.html*" -e robots=off https://packages.termux.dev/apt/termux-main/
+          wget -r -np -nH --cut-dirs=2 -R "index.html*" https://packages.termux.dev/apt/termux-main/pool/
+          wget -r -np -nH --cut-dirs=2 -R "index.html*" -e robots=off https://packages.termux.dev/apt/termux-main/dists/
 
       - name: Upload Termux packages as artifact
         uses: actions/upload-artifact@v3
